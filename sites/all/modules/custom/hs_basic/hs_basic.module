@@ -1,0 +1,19 @@
+﻿<?php 
+
+
+/**
+*  implementation of hook_form
+*/
+
+function hs_basic_form_alter(&$form, &$form_state, $form_id) {
+  switch($form_id) {
+    case "commerce_checkout_form_checkout":
+	  $form['customer_profile_shipping']['#title'] = t('Информация о доставке');
+	  $form['cart_contents']['cart_contents_view']['#markup'] = preg_replace('/<td class="component-title">Order total<\/td>/i', '<td class="component-title">Общая сумма заказа</td>', $form['cart_contents']['cart_contents_view']['#markup']);
+	  break;
+	case "commerce_checkout_form_review":
+	  $form['checkout_review']['review']['#data']['customer_profile_shipping']['title'] = t('Информация о доставке');
+      $form['checkout_review']['review']['#data']['cart_contents']['data'] = preg_replace('/<td class="component-title">Order total<\/td>/i', '<td class="component-title">Общая сумма заказа</td>', $form['checkout_review']['review']['#data']['cart_contents']['data']);
+	  break;	
+  }
+}
