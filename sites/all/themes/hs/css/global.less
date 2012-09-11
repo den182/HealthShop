@@ -1,7 +1,7 @@
-﻿/**
+/**
 *   functions
 */
-.add-box-shadow(@x : 0, @y : 0, @blur : 0, @color) {
+.add-box-shadow(@x, @y, @blur, @color) {
   box-shadow: @x @y @blur @color;
   -webkit-box-shadow: @x @y @blur @color;
   -moz-box-shadow: @x @y @blur @color;  
@@ -64,7 +64,7 @@
 * variables
 */
 
-@box-shadow : #fff;
+@box-shadow : red;
 @box-border-color : #f00;
 @zone-background-color : #fff;
 @menu-bg-color : #b81d1d;
@@ -132,13 +132,13 @@ body h2 {
 }
 
 .zone:before {
-  .add-box-shadow(0px, 0px, 11px, @box-shadow);
   width:100%;
   height:100%;
   content: "";
   position: absolute;
   z-index: -1;
   display:block;
+  .add-box-shadow(0px, 0px, 11px, @box-shadow);
 }
 
 
@@ -146,7 +146,7 @@ body h2 {
   margin-top:80px;
   min-height:270px;
   background:#faa;
-  .add-box-shadow(0, -4px, 11px, @box-shadow);
+  .add-box-shadow(0px, -4px, 11px, @box-shadow);
   padding:40px 0 0 0;
   .zone {
     background:transparent;
@@ -187,8 +187,8 @@ body h2 {
 
 #zone-content {
   min-height:800px;
-  .add-border-left-and-right(1px, , @box-border-color);
-  border-bottom:1px solid @box-border-color;
+   border-bottom:1px solid @box-border-color;
+  .add-border-left-and-right(1px, , @box-border-color); 
   .add-border-bottom-radius(15px);
 }
 
