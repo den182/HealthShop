@@ -10,3 +10,30 @@
  * for your subtheme grows. Please read the README.txt in the /preprocess and /process subfolders
  * for more information on this topic.
  */
+ 
+ function hs_form_comment_form_alter(&$form, &$form_state, &$form_id) {
+  $form['comment_body']['#after_build'][] = 'hs_customize_comment_form';
+  unset($form['actions']['preview']);
+}
+
+function hs_form_comment_node_article_form_alter (&$form, &$form_state, &$form_id) {
+  $form['#prefix'] = '<div class="comment-form-title-wrapper">';
+  $form['#suffix'] = '</div>';
+}
+
+/**
+* Customize comment form
+*/
+ 
+function hs_customize_comment_form(&$form) {  
+  $form[LANGUAGE_NONE][0]['format']['#access'] = FALSE; // Note LANGUAGE_NONE, you may need to set your comment form language code instead 
+  return $form;  
+}
+
+/**
+* comment preprocess
+*/
+
+function hs_preprocess_comment(&$vars) {
+  $vars['attributes_array']['class'][] = $vars['zebra']; //Add zebra to classes
+}
