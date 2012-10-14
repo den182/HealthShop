@@ -9,14 +9,17 @@ function hs_basic_form_alter(&$form, &$form_state, $form_id) {
   switch($form_id) {
     case "commerce_checkout_form_checkout":
     global $user;
-    $profile = user_load($user->uid);
-	  $form['customer_profile_shipping']['#title'] = t('Информация о доставке');
-	  $form['cart_contents']['cart_contents_view']['#markup'] = preg_replace('/<td class="component-title">Order total<\/td>/i', '<td class="component-title">Общая сумма заказа</td>', $form['cart_contents']['cart_contents_view']['#markup']);
-	  
-    $form['customer_profile_shipping']['field_full_name']['und'][0]['value']['#default_value'] = $profile->field_full_name['und'][0]['value'];
-    $form['customer_profile_shipping']['field_address']['und'][0]['value']['#default_value'] = $profile->field_address['und'][0]['value'];
-    $form['customer_profile_shipping']['field_city']['und'][0]['value']['#default_value'] = $profile->field_city['und'][0]['value'];
-    $form['customer_profile_shipping']['field_telephone']['und'][0]['value']['#default_value'] = $profile->field_telephone['und'][0]['value'];
+    $form['customer_profile_shipping']['#title'] = t('Информация о доставке');
+    if ($user->uid != 0) {
+      $profile = user_load($user->uid);    
+  	  $form['customer_profile_shipping']['#title'] = t('Информация о доставке');
+  	  $form['cart_contents']['cart_contents_view']['#markup'] = preg_replace('/<td class="component-title">Order total<\/td>/i', '<td class="component-title">Общая сумма заказа</td>', $form['cart_contents']['cart_contents_view']['#markup']);
+  	  
+      $form['customer_profile_shipping']['field_full_name']['und'][0]['value']['#default_value'] = $profile->field_full_name['und'][0]['value'];
+      $form['customer_profile_shipping']['field_address']['und'][0]['value']['#default_value'] = $profile->field_address['und'][0]['value'];
+      $form['customer_profile_shipping']['field_city']['und'][0]['value']['#default_value'] = $profile->field_city['und'][0]['value'];
+      $form['customer_profile_shipping']['field_telephone']['und'][0]['value']['#default_value'] = $profile->field_telephone['und'][0]['value'];
+    }
     break;
 	case "commerce_checkout_form_review":
 	  $form['checkout_review']['review']['#data']['customer_profile_shipping']['title'] = t('Информация о доставке');
