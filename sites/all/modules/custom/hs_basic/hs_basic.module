@@ -9,7 +9,6 @@ function hs_basic_form_alter(&$form, &$form_state, $form_id) {
   switch($form_id) {
     case "commerce_checkout_form_checkout":
     $form['customer_profile_shipping']['commerce_customer_address']['#access'] = FALSE;
-    dsm($form);
     global $user;
     $form['customer_profile_shipping']['#title'] = t('Информация о доставке');
     if ($user->uid != 0) {
