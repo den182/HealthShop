@@ -1,8 +1,8 @@
-﻿<?php 
+<?php 
 
 
 /**
-*  implementation of hook_form
+*  implementation of hook_form_alter
 */
 
 function hs_basic_form_alter(&$form, &$form_state, $form_id) {
@@ -26,6 +26,23 @@ function hs_basic_form_alter(&$form, &$form_state, $form_id) {
 	  $form['checkout_review']['review']['#data']['customer_profile_shipping']['title'] = t('Информация о доставке');
       $form['checkout_review']['review']['#data']['cart_contents']['data'] = preg_replace('/<td class="component-title">Order total<\/td>/i', '<td class="component-title">Общая сумма заказа</td>', $form['checkout_review']['review']['#data']['cart_contents']['data']);
 	  break;	
+  case "comment_node_news_form":
+    $form['comment_body']['und'][0]['#title'] = 'Комментарий';
+    $form['subject']['#access'] = FALSE;
+    break; 
+  }
+}
+
+/**
+ * implementation of hook_init
+ */
+
+function hs_basic_init() {
+  global $user;
+  if (!($user->uid == 1)) {
+    if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == 'products') {
+      drupal_goto('node/' . arg(1));
+    }
   }
 }
 
